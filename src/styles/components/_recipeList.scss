@@ -1,0 +1,17 @@
+.recipe-list {
+    margin-top: 10rem;
+
+    .list-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .loading-view {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: center;
+        font-size: 2rem;
+        font-weight: bold;
+    }
+}
