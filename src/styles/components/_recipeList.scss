@@ -1,6 +1,81 @@
 .recipe-list {
     margin-top: 10rem;
 
+    .sort-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 50px;
+        margin-bottom: 2.5em;
+        padding: 16px;
+        border-radius: 15px;
+        background: $color-3;
+        color: $color-1;
+        box-shadow: 0 2px 2px rgba(51, 51, 51, 0.3);
+
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            .input-name {
+                font-size: 1.25rem;
+                color: $color-1;
+            }
+
+            .time-coocking {
+                margin-bottom: 0.5rem;
+                font-size: 1.1rem;
+            }
+
+            input {
+                color: $color-3;
+                text-align: center;
+            }
+        }
+
+        .search-bar, .select-number, .select-range {
+            width: 100%;
+        }
+    
+        .radio-list {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+    
+          .input-radio {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              font-size: 1rem;
+
+              input[type="radio"] {
+                  margin-right: 4px;
+              }
+          }
+        }
+    }
+
+    .cancel {
+        margin: 20px auto 30px;
+        width: 100%;
+    
+        h4 {
+          border: 1px $color-3 solid;
+          text-align: center;
+          width: 180px;
+          margin: 0 auto;
+          border-radius: 10px;
+          transition: 0.3s;
+          cursor: pointer;
+
+            &:hover {
+                background: $color-1;
+                border-color: $color-1;
+            }
+        }
+    }
+
     .list-container {
         display: flex;
         justify-content: center;
