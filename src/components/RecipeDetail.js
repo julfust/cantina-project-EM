@@ -66,7 +66,7 @@ const RecipeDetail = () => {
                                 <ul className="ingredient-list">
                                     
                                     {recipe.ingredients.map((ingredient) => (
-                                        <li className="ingredient">{ingredient}</li>
+                                        <li className="ingredient">{`${ingredient[0] !== "" ? ingredient[0] + " " : ""}` + ingredient[1]}</li>
                                     ))}
                                 </ul>
                             </div>

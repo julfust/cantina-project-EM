@@ -75,13 +75,15 @@
             box-shadow: 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
 
             .button-container {
-
+                
                 margin: auto;
                 margin-bottom: 4rem;
+                display: flex;
 
                 .update-button {
                     width: 10rem;
                     height: 2.5rem;
+                    display: block;
                     border-radius: 6px;
                 }
 
@@ -126,5 +128,33 @@
                 }
             }
         }
+    }
+}
+
+@media screen and (max-width: 1024px) {
+
+    .button-container {
+        flex-direction: column;
+
+        .update-button {
+            margin-right: 0;
+            margin-bottom: 1rem;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+
+    .recipe-informations {
+        flex-direction: column;
+        align-items: center !important;
+    }
+
+    .recipe-main, .recipe-secondary {
+        width: 90% !important;
+    }
+
+    .recipe-secondary {
+        margin-bottom: 2rem;
     }
 }
