@@ -1,5 +1,4 @@
 .recipe-list {
-    margin-top: 10rem;
 
     .sort-container {
         display: grid;
@@ -88,5 +87,18 @@
         justify-content: center;
         font-size: 2rem;
         font-weight: bold;
+    }
+}
+
+@media screen and (max-width: 768px) {
+
+    .sort-container {
+        width: 22rem;
+        margin: auto;
+        grid-template-columns: 1fr !important;
+
+        .search-bar, .radio-list .select-number, .select-range {
+            width: 80%;
+        }
     }
 }

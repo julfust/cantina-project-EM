@@ -1,0 +1,32 @@
+.navigation {
+    margin: 9rem 0 2rem;
+    display: flex;
+
+    a {
+        margin: 10px;
+        padding: 10px;
+        position: relative;
+        font-size: 1.1rem;
+        font-weight: bold;
+
+        &:first-child {
+            margin-left: 0;
+            padding-left: 0;
+        }
+
+        &:hover {
+            color: #0652DD;
+        }
+    }
+
+    .nav-active {
+        color: $color-1;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    
+    .navigation {
+        justify-content: center;
+    }
+}
