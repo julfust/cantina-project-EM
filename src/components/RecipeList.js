@@ -90,7 +90,7 @@ const RecipeList = () => {
                     {recipes
                     .filter((recipe) => recipe.titre.includes(name) && recipe.niveau.includes(difficulty) && recipe.personnes >= numberPerson && recipe.tempsPreparation >= coockTime)
                     .map((recipe) => (
-                        <NavLink to="/detail" key={recipe.id}><RecipeCard recipe={recipe} /></NavLink>
+                        <NavLink to={`/detail/${recipe.id}`} key={recipe.id}><RecipeCard recipe={recipe} /></NavLink>
                     ))}
                 </div>
             ) : (

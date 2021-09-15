@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 import { Button } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
 const RecipeDetail = () => {
 
+    const { recipeId } = useParams();
     const [recipe, setRecipe] = useState(null);
 
     useEffect(() => {
 
         axios.get(
-            'http://localhost:9000/api/recipe/1'
+            `http://localhost:9000/api/recipe/${recipeId}`
         )
         .then(res => setRecipe(res.data));
     }, [])
