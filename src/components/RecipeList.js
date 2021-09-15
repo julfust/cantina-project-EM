@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import RecipeCard from './RecipeCard';
+import { NavLink } from 'react-router-dom';
 
 const RecipeList = () => {
 
@@ -89,7 +90,7 @@ const RecipeList = () => {
                     {recipes
                     .filter((recipe) => recipe.titre.includes(name) && recipe.niveau.includes(difficulty) && recipe.personnes >= numberPerson && recipe.tempsPreparation >= coockTime)
                     .map((recipe) => (
-                        <RecipeCard recipe={recipe} key={recipe.id} />
+                        <NavLink to="/detail" key={recipe.id}><RecipeCard recipe={recipe} /></NavLink>
                     ))}
                 </div>
             ) : (
