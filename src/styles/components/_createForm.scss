@@ -1,0 +1,103 @@
+.create-form {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    .form-title {
+        font-size: 2rem;
+    }
+
+    .main-form {
+        width: 50%;
+        padding-bottom: 4rem;
+
+        .form-section {
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+
+            .form-section-title {
+                margin-bottom: 0;
+            }
+
+            .main-form-input {
+                margin: 0.5rem 0;
+                padding: 0.4rem 0.6rem;
+                display: block;
+                border-radius: 5px;
+                border: 1px solid $color-1;
+                outline: none;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            }
+
+            .range-input {
+                display: block;
+                margin: 0.9rem 0;
+            }
+
+            .ingredient-input-container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin: 0.9rem 0;
+
+                .ingredient-input {
+                    width: 29%;
+                    padding: 0.4rem 0.6rem;
+                    display: block;
+                    border-radius: 5px;
+                    border: 1px solid $color-1;
+                    outline: none;
+                    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+                }
+            }
+
+            .delete-control-button {
+                
+                color: #EA2027;
+                border: 1px solid #EA2027;
+                border-radius: 5px;
+
+                &:hover {
+                    color: white;
+                    background-color: #EA2027;
+                }
+            }
+
+            .add-control-button {
+                
+                margin-top: 1rem;
+                border-radius: 5px;
+
+                color: #009432;
+                border: 1px solid #009432;
+
+                &:hover {
+                    color: white;
+                    background-color: #009432;
+                }
+            }
+
+            .step-input-container {
+                
+                margin: 0.7rem 0;
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+
+                .step-input {
+                    width: 91%;
+                    margin: 0;
+                    height: 6rem !important;
+                    resize: none;
+                }
+            }
+        }
+
+        .step-section {
+            padding-top: 2rem;
+        }
+    }
+}

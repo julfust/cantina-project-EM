@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 import { Button } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
@@ -15,7 +16,7 @@ const RecipeDetail = () => {
             `http://localhost:9000/api/recipe/${recipeId}`
         )
         .then(res => setRecipe(res.data));
-    }, [])
+    }, [recipeId])
     
     return (
         <>
@@ -41,7 +42,7 @@ const RecipeDetail = () => {
 
                                 <ol className="step-list">
                                     {recipe.etapes.map((step) => (
-                                        <li className="step">{step}</li>
+                                        <li className="step" key={uuidv4()}>{step}</li>
                                     ))}
                                 </ol>
                             </div>
@@ -66,7 +67,7 @@ const RecipeDetail = () => {
                                 <ul className="ingredient-list">
                                     
                                     {recipe.ingredients.map((ingredient) => (
-                                        <li className="ingredient">{`${ingredient[0] !== "" ? ingredient[0] + " " : ""}` + ingredient[1]}</li>
+                                        <li className="ingredient" key={uuidv4()}>{`${ingredient[0] !== "" ? ingredient[0] + " " : ""}` + ingredient[1]}</li>
                                     ))}
                                 </ul>
                             </div>

@@ -7,11 +7,8 @@ const Navigation = () => {
             <NavLink exact to="/" activeClassName="nav-active">
                 Accueil
             </NavLink>
-            <NavLink exact to="/add" activeClassName="nav-active">
-                Ajout
-            </NavLink>
-            <NavLink exact to="/update" activeClassName="nav-active">
-                Modification
+            <NavLink exact to="/create" activeClassName="nav-active">
+                Création
             </NavLink>
         </div>
     );
