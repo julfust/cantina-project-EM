@@ -54,6 +54,21 @@
                 }
             }
 
+            .step-input-container {
+                
+                margin: 0.7rem 0;
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+
+                .step-input {
+                    width: 91%;
+                    margin: 0;
+                    height: 6rem !important;
+                    resize: none;
+                }
+            }
+
             .delete-control-button {
                 
                 color: #EA2027;
@@ -79,25 +94,29 @@
                     background-color: #009432;
                 }
             }
-
-            .step-input-container {
-                
-                margin: 0.7rem 0;
-                display: flex;
-                justify-content: space-between;
-                align-items: flex-start;
-
-                .step-input {
-                    width: 91%;
-                    margin: 0;
-                    height: 6rem !important;
-                    resize: none;
-                }
-            }
         }
 
         .step-section {
             padding-top: 2rem;
+        }
+
+        .main-form-submit {
+            width: 8rem;
+            margin: auto;
+            margin-top: 2rem;
+            padding: 0.4rem 0.5rem;
+            display: block;
+            color: #009432;
+            background: white;
+            border: 1px solid #009432;
+            border-radius: 5px;
+            transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+
+            &:hover {
+                
+                color: white;
+                background: #009432;
+            }
         }
     }
 }
