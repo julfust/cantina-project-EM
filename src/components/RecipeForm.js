@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 import { Button } from 'antd'
 import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
 
-const CreateForm = () => {
+const RecipeForm = ({type, recipe}) => {
     
     const [formData, setFormData] = useState({
         titre: "", 
@@ -16,6 +16,10 @@ const CreateForm = () => {
         ingredients: [{id: uuidv4(), quantity: 1, unity: "", name: ""}],
         etapes: [{id: uuidv4(), content: ""}]
     })
+
+    useEffect(() => {
+        console.log(type, recipe);
+    }, [recipe, type])
 
     const handleSubmitForm = (e) => {
         e.preventDefault();
@@ -308,4 +312,4 @@ const CreateForm = () => {
     );
 };
 
-export default CreateForm;
+export default RecipeForm;

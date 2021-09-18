@@ -1,5 +1,5 @@
 import React from 'react';
-import CreateForm from '../components/CreateForm';
+import RecipeForm from '../components/RecipeForm';
 import Logo from '../components/Logo';
 import Navigation from '../components/Navigation';
 
@@ -8,7 +8,7 @@ const Create = () => {
         <div className="create">
             <Logo />
             <Navigation />
-            <CreateForm />
+            <RecipeForm type={"create"} />
         </div>
     );
 };
