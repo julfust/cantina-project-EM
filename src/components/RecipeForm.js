@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 import { Button } from 'antd'
 import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
 
-const RecipeForm = ({type, recipe}) => {
+const RecipeForm = ({type}) => {
     
+    const { recipeId } = useParams();
+
     const [formData, setFormData] = useState({
         titre: "", 
         description: "", 
@@ -18,8 +21,39 @@ const RecipeForm = ({type, recipe}) => {
     })
 
     useEffect(() => {
-        console.log(type, recipe);
-    }, [recipe, type])
+
+        if(recipeId) {
+            axios.get(
+                `http://localhost:9000/api/recipe/${recipeId}`
+            )
+            .then(res => {
+                
+                const ingredients = res.data.ingredients.map((ingredient) => {
+                    return {
+                        id: uuidv4(), 
+                        quantity: ingredient[0] !== "" ? parseInt(ingredient[0].replace(/[A-Za-z]/g, "").replace("½", "1")) : 1,
+                        unity: ingredient[0].replace("½", "").replace(/[0-9.]/g, ""), 
+                        name: ingredient[1]
+                    }
+                });
+
+                const etapes = res.data.etapes.map((etape) => {
+                    return {id: uuidv4(), content: etape}
+                });
+
+                setFormData({
+                    titre: res.data.titre, 
+                    description: res.data.description, 
+                    photo: res.data.photo,
+                    niveau: res.data.niveau,
+                    personnes: res.data.personnes,
+                    tempsPreparation: res.data.tempsPreparation,
+                    ingredients: ingredients,
+                    etapes: etapes
+                })
+            });
+        }
+    }, [recipeId])
 
     const handleSubmitForm = (e) => {
         e.preventDefault();
@@ -123,8 +157,8 @@ const RecipeForm = ({type, recipe}) => {
     }
 
     return (
-        <div className="create-form">
-            <h1 className="form-title">Création d'une recette</h1>
+        <div className="recipe-form">
+            <h1 className="form-title">{type === "create" ? "Création d'une recette" : "Modification d'une recette"}</h1>
 
             <form onSubmit={(e) => handleSubmitForm(e)} className="main-form">
 
@@ -238,10 +272,11 @@ const RecipeForm = ({type, recipe}) => {
                                     modifieIngredient(ingredientData);
                                 }} />
 
-                            <select
-                                value={ingredient.unity} 
-                                name="ingredient-unity" 
-                                className="ingredient-input ingredient-unity"
+                            <input
+                                value={ingredient.unity}
+                                type="text" 
+                                placeholder="unité"
+                                className="ingredient-input ingredient-name"
                                 onChange={(e) => {
                                     const ingredientData = {
                                         id: ingredient.id,
@@ -251,11 +286,7 @@ const RecipeForm = ({type, recipe}) => {
                                     };
 
                                     modifieIngredient(ingredientData);
-                                }}>
-                                <option value=""></option>
-                                <option value="cl">cl</option>
-                                <option value="mg">mg</option>
-                            </select>
+                                }} />
 
                             <input
                                 value={ingredient.name}

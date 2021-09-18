@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card } from 'antd';
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { NavLink } from 'react-router-dom';
+import { EyeOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
 const { Meta } = Card;
 
@@ -33,8 +34,9 @@ const RecipeCard = ({ recipe }) => {
                 />
             }
             actions={[
-                    <EditOutlined key="edit" />,
-                    <DeleteOutlined key="delete" />,
+                    <NavLink to={`/detail/${recipe.id}`} key="detail"><EyeOutlined /></NavLink>,
+                    <NavLink to={`/edit/${recipe.id}`} key="edit"><EditOutlined /></NavLink>,
+                    <DeleteOutlined />
                 ]}
             className="recipe-card"
             >

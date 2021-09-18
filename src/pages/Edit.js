@@ -3,14 +3,14 @@ import Logo from '../components/Logo';
 import Navigation from '../components/Navigation';
 import RecipeForm from '../components/RecipeForm';
 
-const Create = () => {
+const Edit = () => {
     return (
-        <div className="create">
+        <div className="edit">
             <Logo />
             <Navigation />
-            <RecipeForm type={"create"} />
+            <RecipeForm type={"update"} />
         </div>
     );
 };
 
-export default Create;
+export default Edit;
