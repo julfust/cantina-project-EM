@@ -67,7 +67,36 @@ const RecipeForm = ({type}) => {
         const ingredients = formData.ingredients.map((ingredient) => [ingredient.quantity + "" + ingredient.unity, ingredient.name]);
         const etapes = formData.etapes.map((etape) => etape.content);
 
-        axios.post("http://localhost:9000/api/recipes", {
+        if(type === "create")
+        {
+            axios.post("http://localhost:9000/api/recipes", {
+                titre,
+                description,
+                niveau,
+                personnes,
+                tempsPreparation,
+                ingredients,
+                etapes,
+                photo
+            })
+            .then(() => {
+                setFormData({
+                    titre: "", 
+                    description: "", 
+                    photo: "",
+                    niveau: "padawan",
+                    personnes: 1,
+                    tempsPreparation: 5,
+                    ingredients: [{id: uuidv4(), quantity: 1, unity: "", name: ""}],
+                    etapes: [{id: uuidv4(), content: ""}]
+                }) 
+            })
+            .catch((err) => console.log(err))
+
+            return;
+        }
+
+        axios.put(`http://localhost:9000/api/recipe/${recipeId}`, {
             titre,
             description,
             niveau,
@@ -77,17 +106,8 @@ const RecipeForm = ({type}) => {
             etapes,
             photo
         })
-        .then(() => {
-            setFormData({
-                titre: "", 
-                description: "", 
-                photo: "",
-                niveau: "padawan",
-                personnes: 1,
-                tempsPreparation: 5,
-                ingredients: [{id: uuidv4(), quantity: 1, unity: "", name: ""}],
-                etapes: [{id: uuidv4(), content: ""}]
-            }) 
+        .then((res) => {
+            console.log(res);
         })
         .catch((err) => console.log(err))
     }
