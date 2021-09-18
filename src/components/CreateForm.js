@@ -1,25 +1,57 @@
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
 import { Button } from 'antd'
 import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
 
 const CreateForm = () => {
     
     const [formData, setFormData] = useState({
-        name: "", 
+        titre: "", 
         description: "", 
         photo: "",
-        difficulty: "padawan",
-        numberPerson: 1,
-        coockTime: 5,
+        niveau: "padawan",
+        personnes: 1,
+        tempsPreparation: 5,
         ingredients: [{id: uuidv4(), quantity: 1, unity: "", name: ""}],
-        steps: [{id: uuidv4(), content: ""}]
+        etapes: [{id: uuidv4(), content: ""}]
     })
 
     const handleSubmitForm = (e) => {
         e.preventDefault();
 
-        console.log(e.target.value);
+        const titre = formData.titre;
+        const description = formData.description;
+        const niveau = formData.niveau;
+        const personnes = formData.personnes;
+        const tempsPreparation = formData.tempsPreparation;
+        const photo = formData.photo;
+        const ingredients = formData.ingredients.map((ingredient) => [ingredient.quantity + "" + ingredient.unity, ingredient.name]);
+        const etapes = formData.etapes.map((etape) => etape.content);
+
+        axios.post("http://localhost:9000/api/recipes", {
+            titre,
+            description,
+            niveau,
+            personnes,
+            tempsPreparation,
+            ingredients,
+            etapes,
+            photo
+        })
+        .then(() => {
+            setFormData({
+                titre: "", 
+                description: "", 
+                photo: "",
+                niveau: "padawan",
+                personnes: 1,
+                tempsPreparation: 5,
+                ingredients: [{id: uuidv4(), quantity: 1, unity: "", name: ""}],
+                etapes: [{id: uuidv4(), content: ""}]
+            }) 
+        })
+        .catch((err) => console.log(err))
     }
 
     const addIngredient = () => {
@@ -56,34 +88,34 @@ const CreateForm = () => {
 
     const addStep = () => {
 
-        let steps = [...formData.steps];
-        steps.push({id: uuidv4(), content: ""});
+        let etapes = [...formData.etapes];
+        etapes.push({id: uuidv4(), content: ""});
 
-        setFormData({...formData, steps});
+        setFormData({...formData, etapes});
     }
 
     const modifieStep = (stepData) => {
 
-        let steps = [...formData.steps];
-        const indexTarget = steps.findIndex(step => step.id === stepData.id);
+        let etapes = [...formData.etapes];
+        const indexTarget = etapes.findIndex(step => step.id === stepData.id);
 
-        steps[indexTarget] = stepData;
+        etapes[indexTarget] = stepData;
 
-        setFormData({...formData, steps});
+        setFormData({...formData, etapes});
     }
 
     const deleteStep = (deletedStepId) => {
 
-        if(formData.steps.length === 1) {
+        if(formData.etapes.length === 1) {
             return;
         }
 
-        let steps = [...formData.steps];
-        const indexTarget = steps.findIndex(step => step.id === deletedStepId);
+        let etapes = [...formData.etapes];
+        const indexTarget = etapes.findIndex(step => step.id === deletedStepId);
 
-        steps.splice(indexTarget, 1);
+        etapes.splice(indexTarget, 1);
 
-        setFormData({...formData, steps});
+        setFormData({...formData, etapes});
     }
 
     return (
@@ -95,14 +127,14 @@ const CreateForm = () => {
                 <div className="form-section">
 
                     <input
-                        value={formData.name}
+                        value={formData.titre}
                         type="text"
-                        placeholder="nom" 
+                        placeholder="titre" 
                         className="main-form-input"
                         onChange={(e) => {
-                            const name = e.target.value;
+                            const titre = e.target.value;
 
-                            setFormData({...formData, name});
+                            setFormData({...formData, titre});
                         }} />
                     <input
                         value={formData.description}
@@ -131,13 +163,13 @@ const CreateForm = () => {
                     <h2 className="form-section-title">Niveau de difficulté:</h2>
 
                     <select
-                        value={formData.difficulty}
+                        value={formData.niveau}
                         name="difficulty-level" 
                         className="main-form-input"
                         onChange={(e) => {
-                            const difficulty = e.target.value;
+                            const niveau = e.target.value;
                             
-                            setFormData({...formData, difficulty});
+                            setFormData({...formData, niveau});
                         }}>
                         <option value="padawan">padawan</option>
                         <option value="jedi">jedi</option>
@@ -149,31 +181,31 @@ const CreateForm = () => {
 
                     <h2 className="form-section-title">Nombre de personne:</h2>
                     <input
-                        value={formData.numberPerson}
+                        value={formData.personnes}
                         type="number" 
                         min="1" 
                         placeholder="1" 
                         className="main-form-input"
                         onChange={(e) => {
-                            const numberPerson = +e.target.value;
+                            const personnes = +e.target.value;
                             
-                            setFormData({...formData, numberPerson});
+                            setFormData({...formData, personnes});
                         }} />
                 </div>
 
                 <div className="form-section">
 
-                    <h2 className="form-section-title">Temps de préparation: {formData.coockTime} min</h2>
+                    <h2 className="form-section-title">Temps de préparation: {formData.tempsPreparation} min</h2>
                     <input
-                        value={formData.coockTime}
+                        value={formData.tempsPreparation}
                         type="range" 
                         min="5" 
                         max="120" 
                         className="range-input" 
                         onChange={(e) => {
-                            const coockTime = +e.target.value;
+                            const tempsPreparation = +e.target.value;
 
-                            setFormData({...formData, coockTime});
+                            setFormData({...formData, tempsPreparation});
                         }} />
                 </div>
 
@@ -248,7 +280,7 @@ const CreateForm = () => {
 
                     <h2 className="form-section-title">Liste d'étapes:</h2>
 
-                    {formData.steps.map((step) => (
+                    {formData.etapes.map((step) => (
                         <div key={step.id} className="step-input-container">
                             <textarea
                                 value={step.content}
