@@ -5,7 +5,7 @@ import { EyeOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 
 const { Meta } = Card;
 
-const RecipeCard = ({ recipe }) => {
+const RecipeCard = ({ recipe, mapIndex, deleteRecipe }) => {
 
     const timeFormat = (time) => {
         if(time >= 60) {
@@ -36,7 +36,7 @@ const RecipeCard = ({ recipe }) => {
             actions={[
                     <NavLink to={`/detail/${recipe.id}`} key="detail"><EyeOutlined /></NavLink>,
                     <NavLink to={`/edit/${recipe.id}`} key="edit"><EditOutlined /></NavLink>,
-                    <DeleteOutlined />
+                    <DeleteOutlined onClick={(e) => deleteRecipe(recipe.id, mapIndex)} />
                 ]}
             className="recipe-card"
             >

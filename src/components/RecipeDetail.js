@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory, NavLink } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { Button } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
@@ -8,6 +8,7 @@ import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 const RecipeDetail = () => {
 
     const { recipeId } = useParams();
+    let history = useHistory();
     const [recipe, setRecipe] = useState(null);
 
     useEffect(() => {
@@ -17,6 +18,19 @@ const RecipeDetail = () => {
         )
         .then(res => setRecipe(res.data));
     }, [recipeId])
+
+    const deleteRecipe = () => {
+
+        if(window.confirm("Cette opération supprimera la recette de facon définitive. Etes-vous sûrs de vouloir faire ceci ?"))
+        {
+
+            axios.delete(
+                `http://localhost:9000/api/recipe/${recipeId}`
+            )
+            .then((res) => history.push("/"))
+            .catch((err) => console.log(err));
+        }
+    }
     
     return (
         <>
@@ -51,8 +65,8 @@ const RecipeDetail = () => {
                         <aside className="recipe-secondary">
 
                             <div className="button-container">
-                                <Button className="update-button modify-button"><EditOutlined /> Modifier</Button>
-                                <Button className="update-button delete-button"><DeleteOutlined /> Supprimer</Button>
+                                <NavLink to={`/edit/${recipeId}`}><Button className="update-button modify-button"><EditOutlined /> Modifier</Button></NavLink>
+                                <Button className="update-button delete-button" onClick={(e) => deleteRecipe()}><DeleteOutlined /> Supprimer</Button>
                             </div>
 
                             <p className="aside-rubrique">Niveau : {recipe.niveau}</p>

@@ -20,6 +20,26 @@ const RecipeList = () => {
         .then(res => setRecipes(res.data));
     }, []);
 
+    const deleteRecipe = (recipeId, mapIndex) => {
+
+        if(window.confirm("Cette opération supprimera la recette de facon définitive. Etes-vous sûrs de vouloir faire ceci ?"))
+        {
+
+            axios.delete(
+                `http://localhost:9000/api/recipe/${recipeId}`
+            )
+            .then((res) => {
+                
+                let recipesCopy = [...recipes];
+
+                recipesCopy.splice(mapIndex, 1);
+
+                setRecipes([...recipesCopy]);
+            })
+            .catch((err) => console.log(err));
+        }
+    }
+
     return (
         <div className="recipe-list">
             <div className="sort-container">
@@ -88,8 +108,8 @@ const RecipeList = () => {
                 <div className="list-container">
                     {recipes
                     .filter((recipe) => recipe.titre.includes(name) && recipe.niveau.includes(difficulty) && recipe.personnes >= numberPerson && recipe.tempsPreparation >= coockTime)
-                    .map((recipe) => (
-                        <RecipeCard recipe={recipe} key={recipe.id} />
+                    .map((recipe, index) => (
+                        <RecipeCard recipe={recipe} mapIndex={index} deleteRecipe={deleteRecipe} key={recipe.id} />
                     ))}
                 </div>
             ) : (
