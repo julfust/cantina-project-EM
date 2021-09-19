@@ -124,3 +124,34 @@
         }
     }
 }
+
+@media screen and (max-width: 768px) {
+
+    .main-form {
+        width: 100% !important;
+    }
+
+    .ingredient-input-container {
+        margin: 1.5rem 0 !important;
+        flex-direction: column !important;
+    }
+
+    .ingredient-input {
+        width: 100% !important;
+        margin-bottom: 1rem !important;
+    }
+
+    .delete-control-button {
+        width: 100% !important;
+    }
+
+    .step-input-container {
+        margin: 1rem 0 !important;
+        flex-direction: column !important;
+    }
+
+    .step-input {
+        width: 100% !important;
+        margin-bottom: 1rem !important;
+    }
+}
