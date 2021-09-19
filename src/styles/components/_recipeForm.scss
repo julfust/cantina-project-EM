@@ -118,5 +118,9 @@
                 background: #009432;
             }
         }
+
+        input:invalid, textarea:invalid {
+            border: 1px solid red !important;
+        }
     }
 }

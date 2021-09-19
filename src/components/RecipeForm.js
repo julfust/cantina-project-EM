@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 import { Button } from 'antd'
@@ -8,6 +8,7 @@ import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
 const RecipeForm = ({type}) => {
     
     const { recipeId } = useParams();
+    let history = useHistory();
 
     const [formData, setFormData] = useState({
         titre: "", 
@@ -15,7 +16,7 @@ const RecipeForm = ({type}) => {
         photo: "",
         niveau: "padawan",
         personnes: 1,
-        tempsPreparation: 5,
+        tempsPreparation: 1,
         ingredients: [{id: uuidv4(), quantity: 1, unity: "", name: ""}],
         etapes: [{id: uuidv4(), content: ""}]
     })
@@ -58,6 +59,8 @@ const RecipeForm = ({type}) => {
     const handleSubmitForm = (e) => {
         e.preventDefault();
 
+        console.log("Debug");
+        
         const titre = formData.titre;
         const description = formData.description;
         const niveau = formData.niveau;
@@ -89,7 +92,9 @@ const RecipeForm = ({type}) => {
                     tempsPreparation: 5,
                     ingredients: [{id: uuidv4(), quantity: 1, unity: "", name: ""}],
                     etapes: [{id: uuidv4(), content: ""}]
-                }) 
+                })
+                
+                history.push("/");
             })
             .catch((err) => console.log(err))
 
@@ -107,7 +112,7 @@ const RecipeForm = ({type}) => {
             photo
         })
         .then((res) => {
-            console.log(res);
+            history.push("/");
         })
         .catch((err) => console.log(err))
     }
@@ -187,16 +192,19 @@ const RecipeForm = ({type}) => {
                     <input
                         value={formData.titre}
                         type="text"
-                        placeholder="titre" 
+                        required="required"
+                        placeholder="titre"
                         className="main-form-input"
                         onChange={(e) => {
                             const titre = e.target.value;
 
                             setFormData({...formData, titre});
                         }} />
+
                     <input
                         value={formData.description}
-                        type="text" 
+                        type="text"
+                        required="required"
                         placeholder="description" 
                         className="main-form-input"
                         onChange={(e) => {
@@ -204,9 +212,12 @@ const RecipeForm = ({type}) => {
                             
                             setFormData({...formData, description});
                         }} />
+
                     <input
                         value={formData.photo}
-                        type="text" 
+                        type="text"
+                        pattern="(http|https)://.+"
+                        title="Url commencant par http:// ou https://"
                         placeholder="photo" 
                         className="main-form-input"
                         onChange={(e) => {
@@ -214,6 +225,7 @@ const RecipeForm = ({type}) => {
                             
                             setFormData({...formData, photo});
                         }} />
+                    
                 </div>
 
                 <div className="form-section">
@@ -257,7 +269,7 @@ const RecipeForm = ({type}) => {
                     <input
                         value={formData.tempsPreparation}
                         type="range" 
-                        min="5" 
+                        min="1" 
                         max="120" 
                         className="range-input" 
                         onChange={(e) => {
@@ -294,7 +306,7 @@ const RecipeForm = ({type}) => {
 
                             <input
                                 value={ingredient.unity}
-                                type="text" 
+                                type="text"
                                 placeholder="unité"
                                 className="ingredient-input ingredient-name"
                                 onChange={(e) => {
@@ -310,7 +322,8 @@ const RecipeForm = ({type}) => {
 
                             <input
                                 value={ingredient.name}
-                                type="text" 
+                                type="text"
+                                required="required"
                                 placeholder="nom" 
                                 className="ingredient-input ingredient-name"
                                 onChange={(e) => {
@@ -339,6 +352,7 @@ const RecipeForm = ({type}) => {
                         <div key={step.id} className="step-input-container">
                             <textarea
                                 value={step.content}
+                                required="required"
                                 name="step-input" 
                                 className="main-form-input step-input"
                                 onChange={(e) => {

@@ -8,7 +8,7 @@ const RecipeList = () => {
     const [name, setName] = useState('');
     const [difficulty, setDifficulty] = useState('');
     const [numberPerson, setNumberPerson] = useState(1);
-    const [coockTime, setCoockTime] = useState(5);
+    const [coockTime, setCoockTime] = useState(1);
     
     const radios = ['padawan', 'jedi', 'maitre'];
 
@@ -90,7 +90,7 @@ const RecipeList = () => {
                     <input
                         value={coockTime}
                         type="range" 
-                        min="5" 
+                        min="1" 
                         max="120"
                         className="select-range"
                         onChange={(e) => setCoockTime(parseInt(e.target.value))}
